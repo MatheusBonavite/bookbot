@@ -1,7 +1,12 @@
+def is_upper(line):
+    return line[0] >= 'A' and line[len(line) - 1] <= 'Z'
 
+def is_lower(line):
+    return line[0] >= 'a' and line[len(line) - 1] <= 'z'
+    
 def word_counter(line):
     stripped_lines = line.strip().split(" ")
-    is_word = lambda sline : len(sline) > 0 and ((sline[0] >= 'A' and sline[len(sline) - 1] <= 'Z') or (sline[0] >= 'a' and sline[len(sline) - 1] <= 'z'))
+    is_word = lambda sline : len(sline) > 0 and (is_upper(sline) or is_lower(sline))
     only_words = list(filter(is_word, stripped_lines))
     return len(only_words)
 
