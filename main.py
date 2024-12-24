@@ -21,17 +21,13 @@ def is_word(word):
 def word_counter(line):
     stripped_lines = line.split(" ")
     only_words = list(filter(is_word, stripped_lines))
-    print(only_words)
     return len(only_words)
 
 def main():
     accum = 0
     with open("books/frankenstein.txt") as file:
         for line in file:
-            print(line)
             accum += word_counter(line)
-    print(accum)
-
 
 if __name__ == "__main__":
     main()
