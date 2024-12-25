@@ -16,13 +16,14 @@ def clean_up_word(word):
     return valid_word
 
 def add_word_in_dict(word, words_dict):
-    clean_word = clean_up_word(word)
-    if len(clean_word) == 0:
+    # TODO: go back once the assignment is delivered
+    #clean_word = clean_up_word(word)
+    if len(word) == 0:
         return
-    if clean_word in words_dict:
-        words_dict[clean_word] += 1
+    if word in words_dict:
+        words_dict[word] += 1
     else:
-        words_dict[clean_word] = 1
+        words_dict[word] = 1
 
 def word_counter(line, words):
     # Temporary variable to keep the current word until next punctuation, special character, etc...
@@ -36,7 +37,25 @@ def word_counter(line, words):
             current_word = ""
     # The last valid word was not accounted before
     add_word_in_dict(current_word, words)
-    return words
+
+def count_characters(characters, words):
+    for word, count in words.items():
+        for character in word:
+            if not character.isalpha():
+                continue
+            lower_case = character.lower()
+            if lower_case in characters:
+                characters[lower_case] += count
+            else:
+                characters[lower_case] = count
+
+def report(amount_of_words, characters, words):
+    print("--- Begin report of books/frankenstein.txt ---")
+    print(f"{amount_of_words} words found in the document\n")
+    sorted_by_characters = dict(sorted(characters.items(), key=lambda item : item[1], reverse=True))
+    for character, count in sorted_by_characters.items():
+        print(f"The '{character}' character was found {count} times")
+    print("--- End report ---")
 
 def main():
     words = {}
@@ -46,6 +65,9 @@ def main():
     accum = 0
     for word, count in words.items():
         accum += count
+    characters = {}
+    count_characters(characters, words)
+    report(accum, characters, words)
 
 if __name__ == "__main__":
     main()
